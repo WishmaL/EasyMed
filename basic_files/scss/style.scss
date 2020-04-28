@@ -1,0 +1,103 @@
+// declaring the variables
+$light_color: #f4f4f4;
+$font-stack: Verdana, Geneva, Tahoma, sans-seri;
+$primary-color: #0e6cff;
+$secondary-color: #ff8700;
+$showcase1: rgb(180, 180, 148);
+$showcase2: rgb(168, 168, 197);
+$footer: orange;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: $light_color;
+  font-family: $font-stack;
+  line-height: 1.6;
+  // padding:0 10%;
+}
+
+.container {
+  max-width: 1100px;
+  padding: 0 30px;
+  margin: 0 auto;
+  overflow: auto;
+}
+
+// the header part
+.showcase1 {
+  background-color: $showcase1;
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .upper-nav {
+      ul {
+        display: flex;
+        // removes the dots
+        list-style-type: none;
+        // align-items: center;
+        // justify-content: space-between;
+        li {
+            a {
+                text-decoration: none;
+            }
+          padding: 5px;
+        }
+      }
+      //   background-color: red;
+    }
+  }
+  .lower-nav {
+    // background-color: brown;
+    ul {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      list-style-type: none;
+      li {
+        align-items: center;
+        justify-content: space-between;
+        a {
+            text-decoration: none;
+        }
+      }
+    }
+  }
+}
+
+// the carousel part
+.showcase2 {
+  background-color: $showcase2;
+  .container {
+    ul {
+      height: 420px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      list-style-type: none;
+    }
+  }
+
+  // decs 1
+  .desc1 {
+    text-align: center;
+    background-color: green;
+  }
+
+  //   desc 2N3
+  .desc2N3 {
+    text-align: center;
+    display: flex;
+    background-color: grey;
+  }
+}
+
+footer {
+  text-align: center;
+  background-color: $footer;
+}
