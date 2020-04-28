@@ -60,7 +60,23 @@ body {
   }
 }
 
+.order{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
+    .medi-description {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        h3{
+            padding-left: 10px;
+        }
+        .title1{
+        text-align: center;
+        }
+    }
+}
 
 footer {
   height: 120px;
