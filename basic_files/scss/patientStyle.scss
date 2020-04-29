@@ -60,22 +60,86 @@ body {
   }
 }
 
-.order{
+.order {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .personal-info {
+    margin: 5%;
+    ul {
+      list-style-type: none;
+    }
+    label{
+      border:2px solid white ;
+      margin-right: 12px;
+    }
+    
+  }
+
+  .title1 {
+    text-align: left;
+  }
+  .medi-description {
+    
     display: flex;
     align-items: center;
     justify-content: space-between;
-
-    .medi-description {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        h3{
-            padding-left: 10px;
-        }
-        .title1{
-        text-align: center;
-        }
+    ul {
+      list-style-type: none;
     }
+    // h3 {
+    //   padding-left: 10px;
+    // }
+    
+    .amount{
+      h3{
+        text-align: left;
+      }
+      margin-right: 50px;
+    }
+    .medication{
+      h3{
+        text-align: left;
+      }
+      margin-right: 50px;
+    }
+  }
+}
+
+.order-submit {
+  .drop-pic {
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: green;
+  }
+
+  .order-btns {
+    height: 100px;
+    background-color: grey;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    button {
+      width: 120px;
+      background-color: rgb(67, 146, 192);
+      border: none;
+      border-left: 4px solid rgb(32, 32, 156);
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: black;
+      border-left: 4px solid rgb(220, 220, 228);
+      border-width: 4px;
+      color: white;
+    }
+  }
 }
 
 footer {

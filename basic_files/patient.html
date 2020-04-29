@@ -35,42 +35,46 @@
       </div>
     </header>
     <section class="order">
-      <div class="personalInfo">
+      <div class="personal-info">
         <ul>
           <h3>Personal Infomation</h3>
           <li>
             <label for="name">
               Name
             </label>
+            <input type="text" />
           </li>
           <li>
             <label for="age">
               Age
             </label>
+            <input type="text" />
           </li>
           <li>
-            <label for="name">
+            <label for="info1">
               info1
             </label>
+            <input type="text" />
           </li>
           <li>
-            <label for="name">
+            <label for="info2">
               info2
             </label>
+            <input type="text" />
           </li>
         </ul>
       </div>
 
       <div>
-           <h3 class="title1">Medication Description</h3>
-      
-      <div class="medi-description">
+        <h3 class="title1">Medication Description</h3>
+
+        <div class="medi-description">
           <!-- <div class="title1">
                 
           </div> -->
-     
+
           <div>
-            <ul>
+            <ul class="medication">
               <h3>Medication</h3>
               <li>
                 <label for="name">
@@ -94,46 +98,49 @@
               </li>
             </ul>
           </div>
-       
-          <div>
-            <ul>
-                <h3>Amount</h3>
-                <li>
-                  <input type="text" />
-                </li>
-                <li>
-                  <input type="text" />
-                </li>
-                <li>
-                  <input type="text" />
-                </li>
-                <li>
-                  <input type="text" />
-                </li>
-              </ul>
-          </div>
-        
-      </div>
-    </div>
 
-      
+          <div class="amount">
+            <ul>
+              <h3>Amount</h3>
+              <li>
+                <input type="text" />
+              </li>
+              <li>
+                <input type="text" />
+              </li>
+              <li>
+                <input type="text" />
+              </li>
+              <li>
+                <input type="text" />
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </section>
     <section class="order-submit">
-        <div class="drop-pic">
-            <input type="file" name="desc_pic" id="desc_pic">
-          </div>
-    
-          <div class="order-btn">
-            <button>Order</button>
-            <button>Ordered summary</button>
-          </div>
+      <div class="drop-pic">
+        <button>
+          <input
+            type="file"
+            name="desc_pic"
+            id="desc_pic"
+            placeholder="Choose pic"
+          />
+        </button>
+      </div>
+
+      <div class="order-btns">
+        <button>Order</button>
+        <button>Summary</button>
+      </div>
     </section>
 
-
     <footer>
-        <h2>
-            The footer
-        </h2>
+      <h2>
+        The footer
+      </h2>
     </footer>
   </body>
 </html>
