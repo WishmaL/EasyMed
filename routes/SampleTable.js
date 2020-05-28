@@ -3,13 +3,13 @@ var router = express.Router();
 var db = require('../database/db');
 const uuid = require('uuid');
 
-db.connect((err) => {
-  if (err) {
-    throw err;
-  } else {
-    console.log('Mysql connected......');
-  }
-});
+// db.connect((err) => {
+//   if (err) {
+//     throw err;
+//   } else {
+//     console.log('Mysql connected......');
+//   }
+// });
 
 // IMPORTANT ADD CONNECTION SCAPE TO IGNORE SQL INJECTIONS
 

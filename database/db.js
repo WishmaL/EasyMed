@@ -5,7 +5,7 @@ var db = mysql.createConnection({
   user: 'root',
   password: '',
 //   change the following name
-  database: 'db_learn',
+  database: 'medical_db',
   multipleStatements: true
 });
 
