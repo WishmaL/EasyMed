@@ -50,7 +50,7 @@ router.post('/newCustomer', (req, res) => {
     req.body.delivery_address
   ];
 
-  let sql = `SET @name = ?; SET @age = ?; SET @nic = ?; SET @contact_no = ?; SET @delivery_address = ?;  CALL cutomer_procedure(@name, @age, @nic, @contact_no, @delivery_address)`;
+  let sql = `SET @name = ?; SET @age = ?; SET @nic = ?; SET @contact_no = ?; SET @delivery_address = ?;  CALL cutomerProcedure(@name, @age, @nic, @contact_no, @delivery_address)`;
   let query = db.query(
     sql,
     [newDealer[0], newDealer[1], newDealer[2], newDealer[3], newDealer[4]],

@@ -33,7 +33,8 @@ CREATE TABLE dealers(
 
 -- one dealer has one stock
 CREATE TABLE stocks(
-    dealerId int(5),	-- primary key
+	id INT(5) AUTO_INCREMENT,
+    dealerId int(5),	
 	medicine_name VARCHAR(100),
 	description VARCHAR(500),
 	stock_qty INT(5),
@@ -114,9 +115,9 @@ VALUES (1,1, 'medi1', 'description1', 20200101, 20210101, 105.50),
 		(3,2, 'medi3','description3', 20200201, 20230201, 12.05);          
         
 INSERT INTO stocks 
-VALUES (1, 'med1', 'desc1', 200, 1),
- 		(2, 'med2', 'desc2',100, 1),
- 		(3, 'med3', 'desc3',150, 1);
+VALUES (1, 1, 'med1', 'desc1', 200, 1),
+ 		(2, 2, 'med2', 'desc2',100, 1),
+ 		(3, 3, 'med3', 'desc3',150, 1);
         
 INSERT INTO orders_information 
 VALUES (1,1, 20200101, 'url1'),

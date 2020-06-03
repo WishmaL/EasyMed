@@ -3,19 +3,11 @@ var router = express.Router();
 var db = require('../database/db');
 const uuid = require('uuid');
 
-// db.connect((err) => {
-//   if (err) {
-//     throw err;
-//   } else {
-//     console.log('Mysql connected......');
-//   }
-// });
-
 // IMPORTANT ADD CONNECTION SCAPE TO IGNORE SQL INJECTIONS
 
 //   fetch data
-router.get('/getDealers', (req, res) => {
-  let sql = 'SELECT * FROM dealers';
+router.get('/getOrdersInfo', (req, res) => {
+  let sql = 'SELECT * FROM orders_information';
   let query = db.query(sql, (err, results) => {
     if (err) throw err;
     console.log(results);
@@ -25,8 +17,8 @@ router.get('/getDealers', (req, res) => {
 
 // ///////////////////////////////////////////
 //   fetch specific user
-router.get('/getDealer', (req, res) => {
-  let sql = `SELECT * FROM dealers WHERE id = ?`;
+router.get('/getOrdersInfo_1', (req, res) => {
+  let sql = `SELECT * FROM orders_information WHERE id = ?`;
   let param = [req.body.id]
   let query = db.query(sql, param, (err, results) => {
     if (err) console.log('The error is ....>>', err);
@@ -47,22 +39,20 @@ router.get('/getDealer', (req, res) => {
 
 // ///////////////////////////////////////////
 // insert a user
-router.post('/newDealer', (req, res) => {
+router.post('/newOrdersInfo', (req, res) => {
   const newDealer = [
     // req.body.id,
     // uuid.v4(),
-    req.body.dealer_name,
-    req.body.dealer_nic,
-    req.body.pharmacy_name,
-    req.body.contact_number,
-    req.body.pharmacy_address,
-    req.body.certificate_id
+    'default',
+    req.body.customerId,
+    req.body.date,
+    req.body.pic_url
   ];
 
-  let sql = `SET @dealer_name = ?; SET @dealer_nic = ?; SET @pharmacy_name = ?; SET @contact_number = ?; SET @pharmacy_address = ?; SET @certificate_id = ?; CALL dealersProcedure(@dealer_name, @dealer_nic, @pharmacy_name, @contact_number, @pharmacy_address, @certificate_id)`;
+  let sql = `SET @id = ?; SET @customerId = ?; SET @date = ?; SET @pic_url = ?;  CALL orders_informationProcedure(@id, @customerId, @date, @pic_url)`;
   let query = db.query(
     sql,
-    [newDealer[0], newDealer[1], newDealer[2], newDealer[3], newDealer[4], newDealer[5]],
+    [newDealer[0], newDealer[1], newDealer[2], newDealer[3]],
     (err, results) => {
       if (err) throw err;
 
@@ -80,22 +70,19 @@ router.post('/newDealer', (req, res) => {
 
 // ////////////////////////////////////////////
 // update a user
-router.put('/updateDealer', (req, res, next) => {
-  const update_dealer = [
-    req.body.dealer_name,
-    req.body.dealer_nic,
-    req.body.pharmacy_name,
-    req.body.contact_number,
-    req.body.pharmacy_address,
-    req.body.certificate_id,
+router.put('/updateOrdersInfo', (req, res, next) => {
+  const update_medicine = [
+    req.body.customerId,
+    req.body.date,
+    req.body.pic_url,
     req.body.id
   ];
 
   
-  let sql = `UPDATE users SET dealer_name = ?, dealer_nic = ?, pharmacy_name =?, contact_number = ?, pharmacy_address = ?, certificate_id = ? WHERE id = ?`;
+  let sql = `UPDATE orders_information SET customerId = ?, date = ?, pic_url = ? WHERE id = ?`;
 
 
-  let query = db.query(sql, update_dealer, (err, results) => {
+  let query = db.query(sql, update_medicine, (err, results) => {
     if (err) throw err;
     console.log(results);
     res.json(results);
@@ -104,11 +91,11 @@ router.put('/updateDealer', (req, res, next) => {
 
 // ///////////////////////////////////////////
 // Delete a user
-router.delete('/deleteDealer', (req, res) => {
-  const deleteDealer = [req.body.id];
+router.delete('/deleteOrdersInfo', (req, res) => {
+  const deleteCustomer = [req.body.id];
 
-  let sql = `DELETE FROM dealers WHERE id = ?`;
-  let query = db.query(sql, deleteDealer[0], (err, results) => {
+  let sql = `DELETE FROM orders_information WHERE id = ?`;
+  let query = db.query(sql, deleteCustomer[0], (err, results) => {
     if (err) throw err;
     console.log('deleted');
     res.send('successfully deleted!');
