@@ -18,17 +18,26 @@ db.connect((err) => {
 var Dealers = require('./routes/Dealers.js')
 app.use('/dealers',Dealers)
 
-// var Notices = require('./routes/Notices.js')
-// app.use('/notices',Notices)
+var Customers = require('./routes/Customers.js')
+app.use('/customers',Customers)
 
-// var Articles = require('./routes/Articles.js')
-// app.use('/articles',Articles)
+var Deliveries = require('./routes/Deliveries.js')
+app.use('/deliveries',Deliveries)
 
-// var Graphs = require('./routes/Graphs.js')
-// app.use('/graphs',Graphs)
+var Delivery_people = require('./routes/Delivery_people.js')
+app.use('/delivery_people',Delivery_people)
 
-// var Comments = require('./routes/Comments.js')
-// app.use('/comments',Comments)
+var Medicines = require('./routes/Medicines.js')
+app.use('/medicines',Medicines)
+
+var Order_medicines = require('./routes/Order_medicines.js')
+app.use('/order_medicines',Order_medicines)
+
+var Orders_Information = require('./routes/Orders_Information.js')
+app.use('/orders_information',Orders_Information)
+
+var Stocks = require('./routes/Stocks.js')
+app.use('/stocks',Stocks)
 
 app.listen(port, () => {
   console.log('Server is running on port', port);
