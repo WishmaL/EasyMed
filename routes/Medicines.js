@@ -85,8 +85,9 @@ router.put('/updateMedicine', (req, res, next) => {
   ];
 
   
-  let sql = `UPDATE customers SET dealerId = ?, medicine_name = ?, description =?, mdf_date = ?, exp_date = ?, unit_price = ? WHERE id = ?`;
+  // let sql = `UPDATE customers SET dealerId = ?, medicine_name = ?, description =?, mdf_date = ?, exp_date = ?, unit_price = ? WHERE id = ?`;
 
+  let sql = `SET @id = ?; SET @dealerId = ?; SET @medicine_name = ?; SET @description = ?; SET @mdf_date = ?; SET @exp_date = ?; SET @unit_price = ?; CALL cutomerProcedure(@id, @dealerId, @medicine_name, @description, @mdf_date, @exp_date, @unit_price)`;
 
   let query = db.query(sql, update_medicine, (err, results) => {
     if (err) throw err;
@@ -98,13 +99,15 @@ router.put('/updateMedicine', (req, res, next) => {
 // ///////////////////////////////////////////
 // Delete a user
 router.delete('/deleteMedicine', (req, res) => {
-  const deleteCustomer = [req.body.id];
+  const deleteMed = [req.body.id];
 
   let sql = `DELETE FROM medicines WHERE id = ?`;
-  let query = db.query(sql, deleteCustomer[0], (err, results) => {
-    if (err) throw err;
-    console.log('deleted');
-    res.send('successfully deleted!');
+  let query = db.query(sql, deleteMed[0], (err, results) => {
+    if (err) console.log(err);
+    console.log(results);
+    if (results.affectedRows)
+      res.send(`Id = ${deleteMed[0]} successfully deleted!`);
+    else res.status(200).send(`There is no id = ${deleteMed[0]}`);
   });
 });
 

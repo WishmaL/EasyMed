@@ -59,8 +59,8 @@ router.post('/newOrdersInfo', (req, res) => {
       results.forEach((element) => {
         if (element.constructor == Array) {
             // msg is a procedure's part
-          var msg = element[0].msg;
-          res.send('Inserted element id : ' + msg);
+          var id = element[0].id;
+          res.send('Inserted element id : ' + id);
           console.log(element[0]);
         }
       });
@@ -71,18 +71,19 @@ router.post('/newOrdersInfo', (req, res) => {
 // ////////////////////////////////////////////
 // update a user
 router.put('/updateOrdersInfo', (req, res, next) => {
-  const update_medicine = [
+  const update_OrdersInfo = [
+    req.body.id,
     req.body.customerId,
     req.body.date,
     req.body.pic_url,
-    req.body.id
+    // req.body.id
   ];
 
   
-  let sql = `UPDATE orders_information SET customerId = ?, date = ?, pic_url = ? WHERE id = ?`;
+  // let sql = `UPDATE orders_information SET customerId = ?, date = ?, pic_url = ? WHERE id = ?`;
+  let sql = `SET @id = ?; SET @customerId = ?; SET @date = ?; SET @pic_url = ?;  CALL orders_informationProcedure(@id, @customerId, @date, @pic_url)`;
 
-
-  let query = db.query(sql, update_medicine, (err, results) => {
+  let query = db.query(sql, update_OrdersInfo, (err, results) => {
     if (err) throw err;
     console.log(results);
     res.json(results);
@@ -92,13 +93,15 @@ router.put('/updateOrdersInfo', (req, res, next) => {
 // ///////////////////////////////////////////
 // Delete a user
 router.delete('/deleteOrdersInfo', (req, res) => {
-  const deleteCustomer = [req.body.id];
+  const deleteOrdersInfo = [req.body.id];
 
   let sql = `DELETE FROM orders_information WHERE id = ?`;
-  let query = db.query(sql, deleteCustomer[0], (err, results) => {
-    if (err) throw err;
-    console.log('deleted');
-    res.send('successfully deleted!');
+  let query = db.query(sql, deleteOrdersInfo[0], (err, results) => {
+    if (err) console.log(err);
+    console.log(results);
+    if (results.affectedRows)
+      res.send(`Id = ${deleteOrdersInfo[0]} successfully deleted!`);
+    else res.status(200).send(`There is no id = ${deleteOrdersInfo[0]}`);
   });
 });
 

@@ -74,17 +74,18 @@ router.post('/newDelivery', (req, res) => {
 // update a user
 router.put('/updateDelivery', (req, res, next) => {
   const update_customer = [
+    req.body.id,
     req.body.delivery_peopleId,
     req.body.orders_informationId,
     req.body.pickup_time,
     req.body.delivered_time,
     req.body.delivery_status,
-    req.body.id
+    // req.body.id
   ];
 
   
-  let sql = `UPDATE customers SET name = ?, age = ?, nic =?, contact_no = ?, delivery_address = ? WHERE id = ?`;
-
+  // let sql = `UPDATE customers SET name = ?, age = ?, nic =?, contact_no = ?, delivery_address = ? WHERE id = ?`;
+  let sql = `SET @id = ?; SET @delivery_peopleId = ?; SET @orders_informationId = ?; SET @pickup_time = ?; SET @delivered_time = ?; SET @delivery_status = ?;  CALL deliveriesProcedure(@id, @delivery_peopleId, @orders_informationId, @pickup_time, @delivered_time, @delivery_status)`;
 
   let query = db.query(sql, update_customer, (err, results) => {
     if (err) throw err;
@@ -96,13 +97,16 @@ router.put('/updateDelivery', (req, res, next) => {
 // ///////////////////////////////////////////
 // Delete a user
 router.delete('/deleteDelivery', (req, res) => {
-  const deleteCustomer = [req.body.id];
+  const deleteDelivery = [req.body.id];
 
   let sql = `DELETE FROM deliveries WHERE id = ?`;
-  let query = db.query(sql, deleteCustomer[0], (err, results) => {
-    if (err) throw err;
-    console.log('deleted');
-    res.send('successfully deleted!');
+  let query = db.query(sql, deleteDelivery[0], (err, results) => {
+    if (err) console.log(err);
+    console.log(results)
+    if(results.affectedRows)
+      res.send(`Id = ${deleteDelivery[0]} successfully deleted!`);
+    else
+      res.status(200).send(`There is no id = ${deleteDelivery[0]}`)
   });
 });
 

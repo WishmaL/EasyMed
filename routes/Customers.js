@@ -19,7 +19,7 @@ router.get('/getCustomers', (req, res) => {
 //   fetch specific user
 router.get('/getCustomer', (req, res) => {
   let sql = `SELECT * FROM customers WHERE id = ?`;
-  let param = [req.body.id]
+  let param = [req.body.id];
   let query = db.query(sql, param, (err, results) => {
     if (err) console.log('The error is ....>>', err);
     console.log(results);
@@ -43,25 +43,28 @@ router.post('/newCustomer', (req, res) => {
   const newDealer = [
     // req.body.id,
     // uuid.v4(),
+    'default',
     req.body.name,
     req.body.age,
     req.body.nic,
     req.body.contact_no,
-    req.body.delivery_address
+    req.body.delivery_address,
   ];
 
-  let sql = `SET @name = ?; SET @age = ?; SET @nic = ?; SET @contact_no = ?; SET @delivery_address = ?;  CALL cutomerProcedure(@name, @age, @nic, @contact_no, @delivery_address)`;
+  let sql = `SET @id = ?;SET @name = ?; SET @age = ?; SET @nic = ?; SET @contact_no = ?; SET @delivery_address = ?; CALL customerProcedure(@id, @name, @age, @nic, @contact_no, @delivery_address)`;
+
+  console.log(newDealer[0])
   let query = db.query(
     sql,
-    [newDealer[0], newDealer[1], newDealer[2], newDealer[3], newDealer[4]],
+    [newDealer[0], newDealer[1], newDealer[2], newDealer[3], newDealer[4], newDealer[5]],
     (err, results) => {
       if (err) throw err;
 
       results.forEach((element) => {
         if (element.constructor == Array) {
-            // msg is a procedure's part
-          var msg = element[0].msg;
-          res.send('Inserted element id : ' + msg);
+          // msg is a procedure's part
+          var msg = element[0].name;
+          res.send('Inserted element name : ' + msg);
           console.log(element[0]);
         }
       });
@@ -72,18 +75,24 @@ router.post('/newCustomer', (req, res) => {
 // ////////////////////////////////////////////
 // update a user
 router.put('/updateCustomer', (req, res, next) => {
+// router.put('/updateCustomer/:id', (req, res, next) => {
   const update_customer = [
+    req.body.id,
     req.body.name,
     req.body.age,
     req.body.nic,
     req.body.contact_no,
     req.body.delivery_address,
-    req.body.id
+    // req.body.id,
   ];
 
-  
-  let sql = `UPDATE customers SET name = ?, age = ?, nic =?, contact_no = ?, delivery_address = ? WHERE id = ?`;
+  // let sql = `UPDATE customers SET name = ?, age = ?, nic =?, contact_no = ?, delivery_address = ? WHERE id = ${req.params.id}`;
 
+  let sql = `SET @id = ?;SET @name = ?; SET @age = ?; SET @nic = ?; SET @contact_no = ?; SET @delivery_address = ?; CALL customerProcedure(@id, @name, @age, @nic, @contact_no, @delivery_address)`;
+
+
+
+// console.log(sql)
 
   let query = db.query(sql, update_customer, (err, results) => {
     if (err) throw err;
@@ -98,10 +107,12 @@ router.delete('/deleteCustomer', (req, res) => {
   const deleteCustomer = [req.body.id];
 
   let sql = `DELETE FROM customers WHERE id = ?`;
-  let query = db.query(sql, deleteCustomer[0], (err, results) => {
-    if (err) throw err;
-    console.log('deleted');
-    res.send('successfully deleted!');
+  let query = db.query(sql,deleteCustomer[0], (err, results) => {
+    if (err) console.log(err);
+    console.log(results);
+    if (results.affectedRows)
+      res.send(`Id = ${deleteCustomer[0]} successfully deleted!`);
+    else res.status(200).send(`There is no id = ${deleteCustomer[0]}`);
   });
 });
 

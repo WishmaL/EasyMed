@@ -59,8 +59,8 @@ router.post('/newOrderMedicine', (req, res) => {
       results.forEach((element) => {
         if (element.constructor == Array) {
             // msg is a procedure's part
-          var msg = element[0].msg;
-          res.send('Inserted element id : ' + msg);
+          var id = element[0].id;
+          res.send('Inserted element id : ' + id);
           console.log(element[0]);
         }
       });
@@ -72,15 +72,16 @@ router.post('/newOrderMedicine', (req, res) => {
 // update a user
 router.put('/updateOrderMedicine', (req, res, next) => {
   const update_medicine = [
+    req.body.id,
     req.body.orders_informationId,
     req.body.medicine_name,
     req.body.amount,
-    req.body.id
+    // req.body.id
   ];
 
   
-  let sql = `UPDATE order_medicines SET orders_informationId = ?, medicine_name = ?, amount =? WHERE id = ?`;
-
+  // let sql = `UPDATE order_medicines SET orders_informationId = ?, medicine_name = ?, amount =? WHERE id = ?`;
+  let sql = `SET @id = ?; SET @orders_informationId = ?; SET @medicine_name = ?; SET @amount = ?; CALL order_medicineProcedure(@id, @orders_informationId, @medicine_name, @amount)`;
 
   let query = db.query(sql, update_medicine, (err, results) => {
     if (err) throw err;
@@ -92,13 +93,15 @@ router.put('/updateOrderMedicine', (req, res, next) => {
 // ///////////////////////////////////////////
 // Delete a user
 router.delete('/deleteOrderMedicine', (req, res) => {
-  const deleteCustomer = [req.body.id];
+  const deleteMed = [req.body.id];
 
   let sql = `DELETE FROM order_medicines WHERE id = ?`;
-  let query = db.query(sql, deleteCustomer[0], (err, results) => {
-    if (err) throw err;
-    console.log('deleted');
-    res.send('successfully deleted!');
+  let query = db.query(sql, deleteMed[0], (err, results) => {
+    if (err) console.log(err);
+    console.log(results);
+    if (results.affectedRows)
+      res.send(`Id = ${deleteMed[0]} successfully deleted!`);
+    else res.status(200).send(`There is no id = ${deleteMed[0]}`);
   });
 });
 

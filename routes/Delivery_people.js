@@ -19,7 +19,7 @@ router.get('/getDeliveryPeople', (req, res) => {
 //   fetch specific user
 router.get('/getDeliveryPerson', (req, res) => {
   let sql = `SELECT * FROM delivery_people WHERE id = ?`;
-  let param = [req.body.id]
+  let param = [req.body.id];
   let query = db.query(sql, param, (err, results) => {
     if (err) console.log('The error is ....>>', err);
     console.log(results);
@@ -45,7 +45,7 @@ router.post('/newDeliveryPerson', (req, res) => {
     // uuid.v4(),
     'default',
     req.body.name,
-    req.body.nic
+    req.body.nic,
   ];
 
   let sql = `SET @id = ?; SET @name = ?; SET @nic = ?; CALL delivery_peopleProcedure(@id, @name, @nic)`;
@@ -57,9 +57,9 @@ router.post('/newDeliveryPerson', (req, res) => {
 
       results.forEach((element) => {
         if (element.constructor == Array) {
-            // msg is a procedure's part
-          var msg = element[0].msg;
-          res.send('Inserted element id : ' + msg);
+          // msg is a procedure's part
+          var id = element[0].id;
+          res.send('Inserted element id : ' + id);
           console.log(element[0]);
         }
       });
@@ -71,14 +71,14 @@ router.post('/newDeliveryPerson', (req, res) => {
 // update a user
 router.put('/updateDeliveryPerson', (req, res, next) => {
   const update_medicine = [
+    req.body.id,
     req.body.name,
     req.body.nic,
-    req.body.id
+    // req.body.id
   ];
 
-  
-  let sql = `UPDATE delivery_people SET name = ?, nic = ? WHERE id = ?`;
-
+  // let sql = `UPDATE delivery_people SET name = ?, nic = ? WHERE id = ?`;
+  let sql = `SET @id = ?; SET @name = ?; SET @nic = ?; CALL delivery_peopleProcedure(@id, @name, @nic)`;
 
   let query = db.query(sql, update_medicine, (err, results) => {
     if (err) throw err;
@@ -94,9 +94,11 @@ router.delete('/deleteDeliveryPerson', (req, res) => {
 
   let sql = `DELETE FROM delivery_people WHERE id = ?`;
   let query = db.query(sql, deleteCustomer[0], (err, results) => {
-    if (err) throw err;
-    console.log('deleted');
-    res.send('successfully deleted!');
+    if (err) console.log(err);
+    console.log(results);
+    if (results.affectedRows)
+      res.send(`Id = ${deleteCustomer[0]} successfully deleted!`);
+    else res.status(200).send(`There is no id = ${deleteCustomer[0]}`);
   });
 });
 

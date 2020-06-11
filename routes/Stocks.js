@@ -61,8 +61,8 @@ router.post('/newStock', (req, res) => {
       results.forEach((element) => {
         if (element.constructor == Array) {
             // msg is a procedure's part
-          var msg = element[0].msg;
-          res.send('Inserted element id : ' + msg);
+          var id = element[0].id;
+          res.send('Inserted element id : ' + id);
           console.log(element[0]);
         }
       });
@@ -73,20 +73,22 @@ router.post('/newStock', (req, res) => {
 // ////////////////////////////////////////////
 // update a user
 router.put('/updateStocks', (req, res, next) => {
-  const update_medicine = [
+  const update_stock = [
+    req.body.id,
     req.body.dealerId,
     req.body.medicine_name,
     req.body.description,
     req.body.stock_qty,
     req.body.available,
-    req.body.id
+    // req.body.id
   ];
 
   
-  let sql = `UPDATE stocks SET dealerId = ?, medicine_name = ?, description = ?, stock_qty =?, available =? WHERE id = ?`;
+  // let sql = `UPDATE stocks SET dealerId = ?, medicine_name = ?, description = ?, stock_qty =?, available =? WHERE id = ?`;
+  let sql = `SET @id = ?; SET @dealerId = ?; SET @medicine_name = ?; SET @description = ?; SET @stock_qty = ?; SET @available = ?; CALL stocksProcedure(@id, @dealerId, @medicine_name, @description, @stock_qty, @available)`;
 
 
-  let query = db.query(sql, update_medicine, (err, results) => {
+  let query = db.query(sql, update_stock, (err, results) => {
     if (err) throw err;
     console.log(results);
     res.json(results);
@@ -96,13 +98,15 @@ router.put('/updateStocks', (req, res, next) => {
 // ///////////////////////////////////////////
 // Delete a user
 router.delete('/deleteStocks', (req, res) => {
-  const deleteCustomer = [req.body.id];
+  const deleteStock = [req.body.id];
 
   let sql = `DELETE FROM stocks WHERE id = ?`;
-  let query = db.query(sql, deleteCustomer[0], (err, results) => {
-    if (err) throw err;
-    console.log('deleted');
-    res.send('successfully deleted!');
+  let query = db.query(sql, deleteStock[0], (err, results) => {
+    if (err) console.log(err);
+    console.log(results);
+    if (results.affectedRows)
+      res.send(`Id = ${deleteStock[0]} successfully deleted!`);
+    else res.status(200).send(`There is no id = ${deleteStock[0]}`);
   });
 });
 

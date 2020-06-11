@@ -51,6 +51,7 @@ router.post('/newDealer', (req, res) => {
   const newDealer = [
     // req.body.id,
     // uuid.v4(),
+    'default',
     req.body.dealer_name,
     req.body.dealer_nic,
     req.body.pharmacy_name,
@@ -59,18 +60,18 @@ router.post('/newDealer', (req, res) => {
     req.body.certificate_id
   ];
 
-  let sql = `SET @dealer_name = ?; SET @dealer_nic = ?; SET @pharmacy_name = ?; SET @contact_number = ?; SET @pharmacy_address = ?; SET @certificate_id = ?; CALL dealersProcedure(@dealer_name, @dealer_nic, @pharmacy_name, @contact_number, @pharmacy_address, @certificate_id)`;
+  let sql = `SET @id = ?;SET @dealer_name = ?; SET @dealer_nic = ?; SET @pharmacy_name = ?; SET @contact_number = ?; SET @pharmacy_address = ?; SET @certificate_id = ?; CALL dealersProcedure(@id, @dealer_name, @dealer_nic, @pharmacy_name, @contact_number, @pharmacy_address, @certificate_id)`;
   let query = db.query(
     sql,
-    [newDealer[0], newDealer[1], newDealer[2], newDealer[3], newDealer[4], newDealer[5]],
+    [newDealer[0], newDealer[1], newDealer[2], newDealer[3], newDealer[4], newDealer[5], newDealer[6]],
     (err, results) => {
       if (err) throw err;
 
       results.forEach((element) => {
         if (element.constructor == Array) {
             // msg is a procedure's part
-          var msg = element[0].msg;
-          res.send('Inserted element id : ' + msg);
+          var id = element[0].id;
+          res.send('Inserted element id : ' + id);
           console.log(element[0]);
         }
       });
@@ -82,17 +83,18 @@ router.post('/newDealer', (req, res) => {
 // update a user
 router.put('/updateDealer', (req, res, next) => {
   const update_dealer = [
+    req.body.id,
     req.body.dealer_name,
     req.body.dealer_nic,
     req.body.pharmacy_name,
     req.body.contact_number,
     req.body.pharmacy_address,
     req.body.certificate_id,
-    req.body.id
+    // req.body.id,
   ];
 
   
-  let sql = `UPDATE users SET dealer_name = ?, dealer_nic = ?, pharmacy_name =?, contact_number = ?, pharmacy_address = ?, certificate_id = ? WHERE id = ?`;
+  let sql = `SET @id = ?;SET @dealer_name = ?; SET @dealer_nic = ?; SET @pharmacy_name = ?; SET @contact_number = ?; SET @pharmacy_address = ?; SET @certificate_id = ?; CALL dealersProcedure(@id, @dealer_name, @dealer_nic, @pharmacy_name, @contact_number, @pharmacy_address, @certificate_id)`;
 
 
   let query = db.query(sql, update_dealer, (err, results) => {
@@ -109,10 +111,14 @@ router.delete('/deleteDealer', (req, res) => {
 
   let sql = `DELETE FROM dealers WHERE id = ?`;
   let query = db.query(sql, deleteDealer[0], (err, results) => {
-    if (err) throw err;
-    console.log('deleted');
-    res.send('successfully deleted!');
+    if (err) console.log(err);
+    console.log(results)
+    if(results.affectedRows)
+      res.send(`Id = ${deleteDealer[0]} successfully deleted!`);
+    else
+      res.status(200).send(`There is no id = ${deleteDealer[0]}`)
   });
 });
+
 
 module.exports = router;
