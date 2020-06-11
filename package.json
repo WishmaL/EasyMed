@@ -4,8 +4,11 @@
   "description": "CO527 Project",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server.js"
+    "start": "node server.js",
+    "server":"nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+
   },
   "repository": {
     "type": "git",
@@ -22,5 +25,8 @@
     "express": "^4.17.1",
     "mysql": "^2.18.1",
     "uuid": "^8.1.0"
+  },
+  "devDependencies": {
+    "concurrently": "^5.2.0"
   }
 }

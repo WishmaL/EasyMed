@@ -1,6 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export const NavBar = () => {
+  
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -78,15 +81,15 @@ export const NavBar = () => {
               placeholder="Search"
               aria-label="Search"
             /> */}
-            <button
+
+
+            <Link to="/Login"><button
               className="btn btn-outline-success my-2 my-sm-0"
-              type="submit"
-              onClick={() => {
-                window.location = '/login';
-              }}
+              type="button"
             >
               Login/SignUp
-            </button>
+            </button></Link>
+           
           </form>
         </div>
       </nav>
