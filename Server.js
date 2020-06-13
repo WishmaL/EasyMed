@@ -25,7 +25,7 @@ var Deliveries = require('./routes/Deliveries.js')
 app.use('/deliveries',Deliveries)
 
 var Delivery_people = require('./routes/Delivery_people.js')
-app.use('/delivery_people',Delivery_people)
+app.use('/delivery_people',Delivery_people) 
 
 var Medicines = require('./routes/Medicines.js')
 app.use('/medicines',Medicines)

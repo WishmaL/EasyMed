@@ -49,7 +49,7 @@ router.post('/newOrderMedicine', (req, res) => {
     req.body.amount
   ];
 
-  let sql = `SET @id = ?; SET @orders_informationId = ?; SET @medicine_name = ?; SET @amount = ?; CALL order_medicineProcedure(@id, @orders_informationId, @medicine_name, @amount)`;
+  let sql = `SET @id = ?; SET @orders_informationId = ?; SET @medicine_name = ?; SET @amount = ?; CALL order_medicinesProcedure(@id, @orders_informationId, @medicine_name, @amount)`;
   let query = db.query(
     sql,
     [newDealer[0], newDealer[1], newDealer[2], newDealer[3]],
@@ -81,7 +81,7 @@ router.put('/updateOrderMedicine', (req, res, next) => {
 
   
   // let sql = `UPDATE order_medicines SET orders_informationId = ?, medicine_name = ?, amount =? WHERE id = ?`;
-  let sql = `SET @id = ?; SET @orders_informationId = ?; SET @medicine_name = ?; SET @amount = ?; CALL order_medicineProcedure(@id, @orders_informationId, @medicine_name, @amount)`;
+  let sql = `SET @id = ?; SET @orders_informationId = ?; SET @medicine_name = ?; SET @amount = ?; CALL order_medicinesProcedure(@id, @orders_informationId, @medicine_name, @amount)`;
 
   let query = db.query(sql, update_medicine, (err, results) => {
     if (err) throw err;
@@ -89,6 +89,7 @@ router.put('/updateOrderMedicine', (req, res, next) => {
     res.json(results);
   });
 });
+
 
 // ///////////////////////////////////////////
 // Delete a user

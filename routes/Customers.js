@@ -28,14 +28,16 @@ router.post('/getCustomer', (req, res) => {
 });
 
 //   fetch specific user
-// router.get('/getUser', (req, res) => {
-//   let sql = `SELECT * FROM users WHERE id = ${req.body.id}`;
-//   let query = db.query(sql, (err, results) => {
-//     if (err) throw err;
-//     console.log(results);
-//     res.send(results);
-//   });
-// });
+router.get('/getCustomerInfo/:id', (req, res) => {
+  let sql = `SELECT * FROM customers WHERE id = ${req.params.id}`;
+  // let param = [req.params.id];
+  // let param = [req.body.id];
+  let query = db.query(sql, (err, results) => {
+    if (err) console.log('The error is ....>>', err);
+    console.log(results);
+    res.send(results);
+  });
+});
 
 // ///////////////////////////////////////////
 // insert a user
@@ -111,16 +113,16 @@ router.put('/updateCustomer', (req, res, next) => {
 
 // ///////////////////////////////////////////
 // Delete a user
-router.delete('/deleteCustomer', (req, res) => {
-  const deleteCustomer = [req.body.id];
+router.delete('/deleteCustomer/:id', (req, res) => {
+  // const deleteCustomer = [req.body.id];
 
-  let sql = `DELETE FROM customers WHERE id = ?`;
-  let query = db.query(sql, deleteCustomer[0], (err, results) => {
+  let sql = `DELETE FROM customers WHERE id = ${req.params.id}`;
+  let query = db.query(sql, (err, results) => {
     if (err) console.log(err);
     console.log(results);
     if (results.affectedRows)
-      res.send(`Id = ${deleteCustomer[0]} successfully deleted!`);
-    else res.status(200).send(`There is no id = ${deleteCustomer[0]}`);
+      res.send(`Id = ${req.params.id} successfully deleted!`);
+    else res.status(200).send(`There is no id = ${req.params.id}`);
   });
 });
 
