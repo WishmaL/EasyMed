@@ -23,6 +23,7 @@ CREATE TABLE order_medicines(
 CREATE TABLE dealers(
 	id INT(5) AUTO_INCREMENT,
 	dealer_name VARCHAR(50),
+	password varchar(45),
 	dealer_nic VARCHAR(10),
 	pharmacy_name VARCHAR(20),
 	contact_number INT(10),
@@ -63,6 +64,7 @@ CREATE TABLE deliveries(
 CREATE TABLE customers(
 	id INT AUTO_INCREMENT,
 	name VARCHAR(50),
+	password varchar(45),
 	age int(4),
 	nic VARCHAR(10),
 	contact_no int(10),
@@ -95,9 +97,9 @@ ALTER TABLE medicines
 ADD FOREIGN KEY (dealerId) REFERENCES dealers(id);
 
 INSERT INTO dealers 
-VALUES (1,'dealer1', 'ph1111', 'ph_name1',11100000,'address1','certId1'),
-		(2,'dealer2', 'ph2222', 'ph_name2',22200000,'address2','certId2'),
-		(3,'dealer3', 'ph3333', 'ph_name3',33300000,'address3','certId3');
+VALUES (1,'dealer1', 'password1', 'ph1111', 'ph_name1',11100000,'address1','certId1'),
+		(2,'dealer2', 'password2', 'ph2222', 'ph_name2',22200000,'address2','certId2'),
+		(3,'dealer3', 'password3', 'ph3333', 'ph_name3',33300000,'address3','certId3');
 
 INSERT INTO delivery_people 
 VALUES (1,'delivary_name1', 'nic1111'),
@@ -105,9 +107,9 @@ VALUES (1,'delivary_name1', 'nic1111'),
 		(3,'delivary_name3', 'nic3333');  
         
 INSERT INTO customers 
-VALUES (1,'customer_name1', 58, '11111v', 111122234, 'delivery_address1'),
-		(2,'customer_name2', 64, '22222v', 333223445, 'delivery_address2'),
-		(3,'customery_name3', 70, '33333v', 556674444, 'delivery_address3');       
+VALUES (1,'customer_name1', 'password1', 58, '11111v', 111122234, 'delivery_address1'),
+		(2,'customer_name2', 'password1', 64, '22222v', 333223445, 'delivery_address2'),
+		(3,'customery_name3', 'password1', 70, '33333v', 556674444, 'delivery_address3');       
         
 INSERT INTO medicines 
 VALUES (1,1, 'medi1', 'description1', 20200101, 20210101, 105.50),
