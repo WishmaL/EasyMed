@@ -2,8 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 export const NavBar = () => {
-  
-
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -82,14 +80,33 @@ export const NavBar = () => {
               aria-label="Search"
             /> */}
 
+            {/* FOLLOWING HAS THE WORKING ONE */}
+            <Link to="/Login">
+              <button
+                className="btn btn-outline-success my-2 my-sm-0"
+                type="button"
+              >
+                Login/SignUp
+              </button>
+            </Link>
 
-            <Link to="/Login"><button
+            {/* THE TESTING ONE IS BELOW */}
+
+            {/* <Link to={
+              {
+              pathname:"/Login",
+              state:{
+
+              }
+              }
+              }>
+              
+              <button
               className="btn btn-outline-success my-2 my-sm-0"
               type="button"
             >
               Login/SignUp
-            </button></Link>
-           
+            </button></Link> */}
           </form>
         </div>
       </nav>

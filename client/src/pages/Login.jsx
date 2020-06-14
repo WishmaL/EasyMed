@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import { Button, Container } from 'react-bootstrap';
 import axios from 'axios';
@@ -6,10 +7,24 @@ import axios from 'axios';
 export const Login = () => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
-  const [IsLoggedIn, setIsLoggedIn] = useState(false);
+  // const [contactNo, setContactNo] = useState('');
+  // const [deliveryAdd, setDeliveryAdd] = useState('');
+  // // const [name, setName] = useState('');
+  // const [nic, setNic] = useState('');
+  // const [age, setAge] = useState('');
+
+  // const [userInfo, setUserInfo] = useState({
+  //   age: '',
+  //   contact_no: '',
+  //   delivery_address: '',
+  //   id: '',
+  //   name: '',
+  //   nic: '',
+  //   password: '',
+  // });
 
   const submitHandler = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const data_ = {
       name: name,
       password: password,
@@ -17,22 +32,37 @@ export const Login = () => {
     axios
       .post('/customers/getCustomer/', data_)
       .then(function (response) {
-        console.log(response.data);
+        // console.log(response.data[0]);
+
         if (!response.data.length) {
           // alert('Username or Password is incorrect! Try again');
-          console.log('Username or Password is incorrect! Try again')
+          console.log('Username or Password is incorrect! Try again');
         } else if (
           response.data[0].name === name &&
           response.data[0].password === password
         ) {
-          // alert('userlogged-In');
-          window.location = `/Customerpage/${name}`;
+          // setAge(response.data[0].age);
+          // console.log(response.data[0].id);
+          // clickHandler();
+          window.location = `/Customerpage/${response.data[0].id}`;
+
+          // window.location = <Link to=/CustomerPage/" />;
         }
+      })
+      .then(() => {
+        // window.location = `/Customerpage/${userInfo}`;
       })
       .catch(function (error) {
         console.log('Error occured! ', error);
       });
+    // console.log(age);
+    // console.log('the data ', userInfo);
   };
+
+  // const clickHandler = () => {
+  //   window.location = `/Customerpage/${userInfo}`;
+  //   console.log('data', userInfo);
+  // };
 
   return (
     <div>
@@ -65,7 +95,7 @@ export const Login = () => {
             <Form.Check type="checkbox" label="Check me out" />
           </Form.Group>
           <div className="text-center">
-            <Button variant="primary" type="submit" >
+            <Button variant="primary" type="submit">
               Login
             </Button>
           </div>
