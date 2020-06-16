@@ -18,7 +18,7 @@ router.get('/getCustomers', (req, res) => {
 // ///////////////////////////////////////////
 //   fetch specific user
 router.post('/getCustomer', (req, res) => {
-  let sql = `SELECT * FROM customers WHERE name = ? AND password = ?`;
+  let sql = `SELECT name, password FROM customers WHERE name = ? AND password = ?`;
   let param = [req.body.name, req.body.password];
   let query = db.query(sql, param, (err, results) => {
     if (err) console.log('The error is ....>>', err);
