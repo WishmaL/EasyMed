@@ -21,32 +21,32 @@ VALUES(2, 'med1', 10),
 -- ex: Costomer wants to find the medicine named 'med1' available pharmacies
 use medical_dbdel;
 
-select d.pharmacy_name as 'Available pharmacies'
-from dealers d 
-inner join stocks s on d.id = s.dealerId
-where s.medicine_name = 'med7' AND s.available = 1;
+SELECT d.pharmacy_name AS 'Available pharmacies'
+FROM dealers d 
+INNER JOIN stocks s ON d.id = s.dealerId
+WHERE s.medicine_name = 'med7' AND s.available = 1;
 
 -- get unit prices for desired medicine name from desired dealer
-select unit_price
-from stocks 
-where medicine_name='med1' and dealerId = 1;
+SELECT unit_price
+FROM stocks 
+WHERE medicine_name='med1' AND dealerId = 1;
 
 -- get unit prices for each ordered medication 
 
-select s.medicine_name, s.unit_price as unitPrice
-from stocks s, order_medicines o
-where s.medicine_name in (
-	select medicine_name
-	from order_medicines 
-	where orders_informationId = 2
+SELECT s.medicine_name, s.unit_price as unitPrice
+FROM stocks s, order_medicines o
+WHERE s.medicine_name IN (
+	SELECT medicine_name
+	FROM order_medicines 
+	WHERE orders_informationId = 2
 )AND o.orders_informationId = 2 AND s.dealerId = 1
-group by  s.medicine_name;
+GROUP BY  s.medicine_name;
 
 -- get the delivery status
 
-select delivery_status
-from deliveries
-where orders_informationId = 2;
+SELECT delivery_status
+FROM deliveries
+WHERE orders_informationId = 2;
 
 -- CRUD customer
 
@@ -55,9 +55,9 @@ where orders_informationId = 2;
 		VALUES (NULL,'new_customer','newpass', '55', '653212349v',0886667542,'new_address');
 		
 	-- read profile(displaying info in the website once logged in)
-	select name, age, nic, contact_no, delivery_address
-	from customers
-	where id = 2;
+	SELECT name, age, nic, contact_no, delivery_address
+	FROM customers
+	WHERE id = 2;
 
 	-- update profile
     UPDATE customers
@@ -69,19 +69,22 @@ where orders_informationId = 2;
 
 
 -- order history based on date
-select id, dealer_name, date, pic_url
-from orders_information
-where customerId = 2 and date='2020-01-01';
+SELECT id, dealer_name, date, pic_url
+FROM orders_information
+WHERE customerId = 2 AND date='2020-01-01';
 
 -- order history of getting medication on date (customer id assigns automatically once logged in)
 
-select m.medicine_name, m.amount, i.date
-from order_medicines m
-inner join orders_information i on i.id = m.orders_informationId
-where i.date='2020-01-01' and i.customerId = 2
-group by m.medicine_name;
+SELECT m.medicine_name, m.amount, i.date
+FROM order_medicines m
+INNER JOIN orders_information i ON i.id = m.orders_informationId
+WHERE i.date='2020-01-01' AND i.customerId = 2
+GROUP BY m.medicine_name;
     
-    
+-- display info about phamacy
+SELECT pharmacy_name, contact_number, pharmacy_address, certificate_id
+FROM dealers
+WHERE pharmacy_name = 'ph_name1';    
 
 
 
