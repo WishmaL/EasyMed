@@ -118,7 +118,7 @@ from stocks
 WHERE medicine_name = 'med1';
 
  -- UPDATE THE STOCK TABLE
-UPDATE STOCKS
+UPDATE stocks
 SET  description = 'updetd_descr', mdf_date='2020-06-19', exp_date='2022-09-19', unit_price='10.00', stock_qty='120', available = 1
 WHERE dealerId=1 and medicine_name = 'med1'; 
  

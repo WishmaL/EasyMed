@@ -22,7 +22,7 @@ CREATE TABLE order_medicines(
 
 CREATE TABLE dealers(
 	id INT(5) AUTO_INCREMENT,
-	dealer_name VARCHAR(50),
+	dealer_name VARCHAR(50) not null unique,
 	password VARCHAR(10),
 	dealer_nic VARCHAR(10),
 	pharmacy_name VARCHAR(20),
