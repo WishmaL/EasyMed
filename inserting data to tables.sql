@@ -1,4 +1,8 @@
--- Additional data for delivery_people
+
+
+-- INSERT ADDITIONAL DATA TO TABLES delivery_people, orders_information, order_medicines, deliveries
+
+
 use medical_dbdel;
 
 INSERT INTO delivery_people(name, nic) 
@@ -9,14 +13,21 @@ INSERT INTO delivery_people(name, nic)
     ('user8', 'nic2128');
 
 -- Additional data for orders_information    
-INSERT INTO orders_information(customerId, date, pic_url) 
-	VALUES (3,'2020-01-01', 'url4'),
-    (1,'2020-02-01', 'url5'),
-    (2,'2020-02-01', 'url6'),
-    (2,'2020-03-11', 'url7'),
-    (3,'2020-03-21', 'url8'),
-    (1,'2020-04-01', 'url9'),
-    (2,'2020-04-03', 'url10');
+INSERT INTO orders_information(customerId, dealer_name, date, pic_url) 
+	VALUES (3, 'dealer1', '2020-01-01', 'url4'),
+    (1, 'dealer2', '2020-02-01', 'url5'),
+    (2, 'dealer2', '2020-02-01', 'url6'),
+    (2, 'dealer1', '2020-03-11', 'url7'),
+    (3, 'dealer1', '2020-03-21', 'url8'),
+    (1, 'dealer3', '2020-04-01', 'url9'),
+    (2, 'dealer1', '2020-04-03', 'url10');
+    
+INSERT INTO order_medicines (orders_informationId, medicine_name, amount)
+	VALUES(2, 'med1', 10),
+	(2, 'med2', 12),
+	(2, 'med3', 30),
+	(2, 'med4', 20),
+	(2, 'med5', 10);
 
 -- Additional data for deliveries    
 INSERT INTO deliveries (delivery_peopleId, orders_informationId, pickup_time, delivered_time, delivery_status)
