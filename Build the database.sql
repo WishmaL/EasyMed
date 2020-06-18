@@ -1,8 +1,8 @@
 
 -- 	THIS IS THE ONE, SHOULD USE TO CREATE THE TABLES AND INSERT DATA
 
-CREATE DATABASE medical_dbdel;
-USE medical_dbdel;
+CREATE DATABASE medical_db_del;
+USE medical_db_del;
 
 -- CREATE TABLE medicines(
 -- 	id INT(11) AUTO_INCREMENT,
@@ -28,13 +28,12 @@ CREATE TABLE stocks(
 
 
 
-
 CREATE TABLE dealers(
 	id INT(5) AUTO_INCREMENT,
-	dealer_name VARCHAR(50)NOT NULL UNIQUE,
+	dealer_name VARCHAR(50),
 	password VARCHAR(10),
 	dealer_nic VARCHAR(10),
-	pharmacy_name VARCHAR(20),
+	pharmacy_name VARCHAR(20) NOT NULL UNIQUE,
 	contact_number INT(10),
 	pharmacy_address TEXT(100),
 	certificate_id TEXT(100),
@@ -73,7 +72,7 @@ CREATE TABLE customers(
 CREATE TABLE orders_information(
 	id INT(11) AUTO_INCREMENT,
 	customerId INT(5),
-    dealer_name VARCHAR(50),
+    pharmacy_name VARCHAR(20),
 	date DATE,
 	pic_url TEXT(50),
 	PRIMARY KEY(id)
@@ -95,7 +94,7 @@ ADD FOREIGN KEY(orders_informationId) REFERENCES orders_information(id);
 
 ALTER TABLE orders_information
 ADD FOREIGN KEY (customerId) REFERENCES customers(id),
-ADD FOREIGN KEY (dealer_name) REFERENCES dealers(dealer_name);
+ADD FOREIGN KEY (pharmacy_name) REFERENCES dealers(pharmacy_name);
 
 ALTER TABLE order_medicines
 ADD FOREIGN KEY (orders_informationId) REFERENCES orders_information(id);
@@ -156,9 +155,9 @@ VALUES (1, 1, 'med1', 'description1', 20200101, 20210101, 105.50, 200, 1),
 
 
 INSERT INTO orders_information 
-VALUES (1,1, 'dealer1', 20200101, 'url1'),
-		(2,2, 'dealer1', 20200101, 'url2'),
-		(3,3, 'dealer2', 20200101, 'url3');
+VALUES (1,1, 'ph_name1', 20200101, 'url1'),
+		(2,2, 'ph_name1', 20200101, 'url2'),
+		(3,3, 'ph_name2', 20200101, 'url3');
 
 
 INSERT INTO deliveries 

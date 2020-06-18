@@ -1,9 +1,9 @@
 -- dealers allow to read the data only from 'deliveries' table
 -- following is useful for check the status of all deliveries  
- 
+USE medical_db_del;
  -- ----------------------------------------------------------------------------------------- 
  -- correct 
- -- get the customer information based on EACH DEALER(each dealer can see their own orders)
+ -- get the customer information based on each phamacy(each dealer can see their own orders)
 SELECT 
 c.name, 
 c.age,
@@ -13,10 +13,10 @@ oi.date,
 oi.pic_url
 FROM
     dealers d
-	INNER JOIN orders_information USING(dealer_name),
+	INNER JOIN orders_information USING(pharmacy_name),
     customers c
 	INNER JOIN orders_information oi ON oi.customerId = c.id
-WHERE oi.dealer_name = 'dealer1'
+WHERE oi.pharmacy_name = 'ph_name1'
 GROUP BY oi.pic_url
 ORDER BY oi.date DESC; 
   
@@ -32,8 +32,8 @@ SELECT
  	orders_information.pic_url
 FROM
      dealers d
- 	INNER JOIN orders_information USING(dealer_name)
-WHERE orders_information.dealer_name = 'dealer1';
+ 	INNER JOIN orders_information USING(pharmacy_name)
+WHERE orders_information.pharmacy_name = 'ph_name1';
 
     -- /correct
  -- ----------------------------------------------------------------------------------------- 
@@ -43,7 +43,7 @@ WHERE orders_information.dealer_name = 'dealer1';
  -- FOLLOWING SHOWS THE DELIVERY STATUS OF THE ORDER
  -- correct
 SELECT 
-     orders_informationId, 
+	orders_informationId, 
     delivery_status
 FROM
     deliveries
@@ -65,7 +65,7 @@ SELECT
     orders_informationId, 
     delivery_status
 FROM
-     deliveries
+	deliveries
      
 ORDER BY 
 		FIELD(delivery_status,
