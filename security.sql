@@ -1,10 +1,21 @@
 -- Security has to be done as follows
 -- -------------------------------------------
 
+CREATE USER 'user_dealer'@'localhost' IDENTIFIED BY '123';
+ALTER USER 'user_dealer'@'localhost' IDENTIFIED BY '123';
+
+CREATE USER 'user_customer'@'localhost' IDENTIFIED BY '123';
+ALTER USER 'user_customer'@'localhost' IDENTIFIED BY '123';
+
+CREATE USER 'user_delivery'@'localhost' IDENTIFIED BY '123';
+ALTER USER 'user_delivery'@'localhost' IDENTIFIED BY '123';
+
 -- According to dealer_members perspective
 	-- dealers has 
 		-- full access to dealers table, stocks table.(they can be CRUD(=Create,Read,...etc))
         -- can CRUD deliveries
+
+GRANT ALL PRIVILEGES ON database_name.* TO 'username'@'localhost';
 
 	-- delivery_people can't 
 		-- access 'stocks' table
