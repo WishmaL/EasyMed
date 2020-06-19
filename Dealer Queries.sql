@@ -1,6 +1,8 @@
+USE medical_db1;
+
 -- dealers allow to read the data only from 'deliveries' table
 -- following is useful for check the status of all deliveries  
-USE medical_db_del;
+
  -- ----------------------------------------------------------------------------------------- 
  -- correct 
  -- get the customer information based on each phamacy(each dealer can see their own orders)
@@ -94,23 +96,23 @@ GROUP BY oi.date;
 
  -- /correct
  
- 
- -- get login 
- SELECT dealer_name
- from dealers
- WHERE dealer_name = 'dealer1' AND password = 'password1';
- 
- -- get registered
-INSERT INTO dealers (dealer_name, password, dealer_nic, pharmacy_name, contact_number, pharmacy_address, certificate_id)
-VALUES ('dealer1', 'password1', 'ph1111', 'ph_name1',11100000,'address1','certId1');
-    
- -- update profile
-UPDATE dealers
-SET name = 'updtedName', password = 'updetdPass', age='56', nic='222222222v', contact_no='1234556700', delivery_address='updated_address'
-WHERE id=4; 
- 
- -- delete profile
- DELETE FROM dealers WHERE id=4;
+-- CRUD dealer_members 
+	 -- get login 
+	 SELECT name
+	 from dealer_members
+	 WHERE name = 'dealer_member1' AND password = 'password1';
+	 
+	 -- get registered
+	INSERT INTO dealer_members (nic, pharmacy_name, name, password, certificate_id, contact_number)
+	VALUES ('00223334v','ph_name3','dealer_member0', 'password0', 'certId1200', 000022234);
+		
+	 -- update profile
+	UPDATE dealer_members
+	SET nic = '00223334v', pharmacy_name = 'ph_name3', name='dealer_member0', password='password0u', certificate_id='certId120u', contact_number='000022230'
+	WHERE nic='00223334v'; 
+	 
+	 -- delete profile
+	 DELETE FROM dealer_members WHERE nic = '00223334v';
  
  -- search medicine info based on medicine name
 SELECT medicine_name, description, mdf_date, exp_date, unit_price, stock_qty, available
@@ -120,10 +122,10 @@ WHERE medicine_name = 'med1';
  -- UPDATE THE STOCK TABLE
 UPDATE stocks
 SET  description = 'updetd_descr', mdf_date='2020-06-19', exp_date='2022-09-19', unit_price='10.00', stock_qty='120', available = 1
-WHERE dealerId=1 and medicine_name = 'med1'; 
+WHERE pharmacy_name='ph_name1' and medicine_name = 'med1'; 
  
  -- CREATE NEW MEDICINE (by dealer_name1)
 INSERT INTO stocks 
-VALUES (NULL, 1, 'med111', 'description111', 20200101, 20210101, 105.50, 200, 1);
+VALUES (NULL, 'ph_name1', 'med111', 'description111', 20200101, 20210101, 105.50, 200, 1);
 
  

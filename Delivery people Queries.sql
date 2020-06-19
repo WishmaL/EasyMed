@@ -1,3 +1,5 @@
+USE medical_db1;
+
 -- not needed
 --  -- following is useful for check the status of the delivery   
 -- SELECT 
