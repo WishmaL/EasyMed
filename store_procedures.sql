@@ -1,4 +1,4 @@
-USE medical_db0;
+USE medical_database;
 
 -- Customer Store Procedure
 DELIMITER //

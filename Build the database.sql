@@ -1,17 +1,8 @@
 
 -- 	THIS IS THE ONE, SHOULD USE TO CREATE THE TABLES AND INSERT DATA
 
-CREATE DATABASE medical_db0;
-USE medical_db0;
-
--- CREATE TABLE medicines(
--- 	id INT(11) AUTO_INCREMENT,
---     stockId INT(5),
--- 	medicine_name VARCHAR(100),
--- 	description TEXT(500),
-
--- 	PRIMARY KEY(id)
--- );
+CREATE DATABASE medical_database;
+USE medical_database;
 
 CREATE TABLE stocks(
 	id INT(5) AUTO_INCREMENT,
@@ -26,7 +17,6 @@ CREATE TABLE stocks(
     available TINYINT(1),
 	PRIMARY KEY(id)
 );
-
 
 
 CREATE TABLE dealers(
@@ -92,17 +82,8 @@ CREATE TABLE orders_information(
 	PRIMARY KEY(id)
 );
 
--- CREATE TABLE order_medicines(
--- 	id INT(11) AUTO_INCREMENT,
---     orders_informationId INT(5),
--- 	medicine_name VARCHAR(100),
---     amount INT(4),
--- 	PRIMARY KEY(id)
--- );
-
 
 CREATE TABLE order_medicines(
-	-- id INT(11) AUTO_INCREMENT,
     orders_informationId INT(5),
 	medicine_name VARCHAR(100),
     amount INT(4),
@@ -136,8 +117,7 @@ ALTER TABLE dealer_members
 ADD FOREIGN KEY (pharmacy_name) REFERENCES dealers(pharmacy_name)
 ON DELETE CASCADE;
 
--- ALTER TABLE medicines
--- ADD FOREIGN KEY (stockId) REFERENCES stocks(id);
+
 
 INSERT INTO dealers 
 VALUES (1, 'ph_name1',11100000,'address1','certId1'),
@@ -167,11 +147,6 @@ VALUES (1,'customer_name1', 'password1', 58, '11111v', 111122234, 'delivery_addr
 		(2,'customer_name2', 'password1', 64, '22222v', 333223445, 'delivery_address2'),
 		(3,'customery_name3', 'password1', 70, '33333v', 556674444, 'delivery_address3');       
     
-    
-    -- INSERT INTO medicines 
--- VALUES (1,1, 'medi1', 'description1', 20200101, 20210101, 105.50),
--- 		(2,1, 'medi2', 'description2', 20200102, 20220102, 55.00),
--- 		(3,2, 'medi3','description3', 20200201, 20230201, 12.05);    
     
 INSERT INTO stocks 
 VALUES (1, 'ph_name1', 'med1', 'description1', 20200101, 20210101, 105.50, 200, 1),
@@ -211,10 +186,6 @@ VALUES (1, 1, 1, '2020-11-14 08:00:00', '2020-11-14 08:40:00', 'picked up'),
 		(2, 1, 2, '2020-11-14 09:00:00', '2020-11-14 09:20:00', 'delivered'),
 		(3, 3, 3, '2020-11-14 10:00:00', '2020-11-14 11:00:00', 'delivered');
         
--- INSERT INTO order_medicines 
--- VALUES (1,1, 'medi1', 20),
--- 		(2,1, 'medi2', 30),
--- 		(3,3, 'medi3', 12);
         
 INSERT INTO order_medicines 
 VALUES (1, 'medi1', 20),

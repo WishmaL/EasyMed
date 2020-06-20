@@ -1,4 +1,4 @@
-USE medical_db0;
+USE medical_database;
 -- Order medication from the desired pharmacy
 -- Since id is auto increment, it is not mentioned here 
 
