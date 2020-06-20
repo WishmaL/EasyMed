@@ -1,12 +1,11 @@
 
 -- 	THIS IS THE ONE, SHOULD USE TO CREATE THE TABLES AND INSERT DATA
-
+-- Create the 'medical_database'
 CREATE DATABASE medical_database;
 USE medical_database;
 
 CREATE TABLE stocks(
-	id INT(5) AUTO_INCREMENT,
-    -- dealerId INT(5),	
+	id INT(5) AUTO_INCREMENT,	
     pharmacy_name VARCHAR(20),
 	medicine_name VARCHAR(100),
 	description VARCHAR(500),
@@ -21,9 +20,6 @@ CREATE TABLE stocks(
 
 CREATE TABLE dealers(
 	id INT(5) AUTO_INCREMENT,
-	-- dealer_name VARCHAR(50)NOT NULL,
-	-- password VARCHAR(10)NOT NULL,
-	-- dealer_nic VARCHAR(10)NOT NULL,
 	pharmacy_name VARCHAR(20) NOT NULL unique,
 	contact_number INT(10)NOT NULL,
 	pharmacy_address TEXT(100),
@@ -90,13 +86,13 @@ CREATE TABLE order_medicines(
 	PRIMARY KEY(orders_informationId, medicine_name)
 );
 
+-- Following queries will add foreign keys to relavant tables
 
 ALTER TABLE deliveries
 ADD FOREIGN KEY (delivery_peopleId) REFERENCES delivery_people(id)
 ON DELETE CASCADE,
 ADD FOREIGN KEY(orders_informationId) REFERENCES orders_information(id)
 ON DELETE CASCADE;
-
 
 ALTER TABLE orders_information
 ADD FOREIGN KEY (customerId) REFERENCES customers(id)
@@ -108,7 +104,6 @@ ALTER TABLE order_medicines
 ADD FOREIGN KEY (orders_informationId) REFERENCES orders_information(id)
 ON DELETE CASCADE;
 
--- pharmacy_name VARCHAR(20)
 ALTER TABLE stocks
 ADD FOREIGN KEY (pharmacy_name) REFERENCES dealers(pharmacy_name)
 ON DELETE CASCADE;

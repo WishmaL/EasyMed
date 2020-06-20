@@ -33,6 +33,7 @@ BEGIN
 END//
 DELIMITER ;
 
+
 -- dealer_members Store Procedure
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `dealer_membersProcedure`(
@@ -64,6 +65,40 @@ BEGIN
     select _nic as'NIC', _name as 'name', _pharmacy_name as 'pharmacy', _contact_number as 'contact number', _certificate_id as 'certificate Id' ;
 END//
 DELIMITER ;
+
+
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `deliveriesProcedure`(
+IN _id int(11),
+in _delivery_peopleId int(5),
+in _orders_informationId int(11),
+in _pickup_time datetime,
+in _delivered_time datetime,
+in _delivery_status enum('not delivered','picked up','delivered')
+
+)
+BEGIN
+	if _id = 0 then
+			insert into deliveries(id, delivery_peopleId, orders_informationId, pickup_time, delivered_time, delivery_status)
+			values(_id, _delivery_peopleId, _orders_informationId, _pickup_time, _delivered_time, _delivery_status); 
+            
+            set _id = last_insert_id();
+            
+	else
+			UPDATE deliveries
+            set
+            delivery_peopleId = _delivery_peopleId,
+            orders_informationId = _orders_informationId,
+            pickup_time = _pickup_time,
+            delivered_time = _delivered_time,
+            delivery_status = _delivery_status
+            where id = _id;
+	end if;
+    select _id as 'id', _orders_informationId as 'orders_informationId', _pickup_time as 'pickup_time', _delivered_time as 'delivered_time', _delivery_status as 'delivery_status';
+END//
+DELIMITER ;
+
+
 -- order_medicines Store Procedure
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `orderMedicines`(

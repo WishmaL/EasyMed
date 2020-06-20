@@ -5,7 +5,6 @@ USE medical_database;
 # Customers are only searched using the id Therefore the automatically created PRIMARY KEY INDEX is used.
 
 
-
 # Dealers table
 # Attributes: id, pharmacy_name, contact_no, pharmacy_address, certificate_id
 # Dealers are searched using the id, pharmacy_name.
