@@ -17,9 +17,16 @@ VALUES(3, 'med1', 10),
 (3, 'med5', 10);
                     
 
+
+-- FOR ORDER MEDICINES
+
+call orderMedicines(1,'ph_name1','2020-11-14','myurl','med1,1,med2,1,med3,1');
+
+
+
 -- find the desired pharmacy according to given medicine name
 -- ex: Costomer wants to find the medicine named 'med1' available pharmacies
-use medical_db1;
+
 
 SELECT d.pharmacy_name AS 'Available pharmacies'
 FROM dealers d 
@@ -49,10 +56,15 @@ FROM deliveries
 WHERE orders_informationId = 2;
 
 -- CRUD customer
+use medical_db1;
+    -- insert
+	call customerProcedure(0,'new_customer','newpass', '55', '653212349v',0886667542,'new_address');
+    -- update
+	call customerProcedure(4,'up_customer','newpass', '55', '653212349v',0886667542,'upnew_address');
 
 	-- create new profile
-	INSERT INTO customers 
-		VALUES (NULL,'new_customer','newpass', '55', '653212349v',0886667542,'new_address');
+	-- INSERT INTO customers 
+-- 		VALUES (NULL,'new_customer','newpass', '55', '653212349v',0886667542,'new_address');
 		
 	-- read profile(displaying info in the website once logged in)
 	SELECT name, age, nic, contact_no, delivery_address
@@ -60,9 +72,9 @@ WHERE orders_informationId = 2;
 	WHERE id = 2;
 
 	-- update profile
-    UPDATE customers
-	SET name = 'updtedName', password = 'updetdPass', age='56', nic='222222222v', contact_no='1234556700', delivery_address='updated_address'
-	WHERE id=4; 
+    -- UPDATE customers
+-- 	SET name = 'updtedName', password = 'updetdPass', age='56', nic='222222222v', contact_no='1234556700', delivery_address='updated_address'
+-- 	WHERE id=4; 
     
     -- delete customer
     DELETE FROM customers WHERE id=4;

@@ -1,21 +1,4 @@
-USE medical_db1;
-
--- not needed
---  -- following is useful for check the status of the delivery   
--- SELECT 
---     orderNumber, 
---     status
--- FROM
---     orders
--- ORDER BY 
---     FIELD(status,
---         'In Process',
---         'On Hold',
---         'Cancelled',
---         'Resolved',
---         'Disputed',
---         'Shipped');
-
+USE medical_db2;
 
 -- UPDATE THE DELIVERIES TABLE
 
@@ -110,18 +93,16 @@ where om.orders_informationId = 2 and s.medicine_name in (
     om.amount,
     s.unit_price,
     s.unit_price*om.amount as 'Price for each medicine'
-	-- SUM(s.unit_price*om.amount) as 'total'
-    -- total) as net
+	
 from 
 	orders_information oi
 	inner join order_medicines om on om.orders_informationId = oi.id,
     stocks s
     inner join order_medicines om1 on om1.medicine_name = s.medicine_name
     
-    -- group by om1.medicine_name
+    
 where om.orders_informationId = 2 and s.medicine_name in (
 	select medicine_name
     from order_medicines
     where orders_informationId = 2
 );
--- group by s.unit_price, mo1.amount;

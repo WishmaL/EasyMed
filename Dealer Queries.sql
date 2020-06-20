@@ -1,4 +1,4 @@
-USE medical_db1;
+USE medical_db2;
 
 -- dealers allow to read the data only from 'deliveries' table
 -- following is useful for check the status of all deliveries  
@@ -102,17 +102,22 @@ GROUP BY oi.date;
 	 from dealer_members
 	 WHERE name = 'dealer_member1' AND password = 'password1';
 	 
+     
+     -- call dealersProcedure(0,'ph_name4', '1122334455', 'ph_4_address', '12wwwe');
+     
+     
 	 -- get registered
-	INSERT INTO dealer_members (nic, pharmacy_name, name, password, certificate_id, contact_number)
-	VALUES ('00223334v','ph_name3','dealer_member0', 'password0', 'certId1200', 000022234);
-		
+	 -- First argument decide this is update or delete
+      call dealer_membersProcedure(1, '1111111', 'ph_name1', 'dealer_memberNew', 'passnew', 'certId1223', 111122234);  
+        
+        
 	 -- update profile
-	UPDATE dealer_members
-	SET nic = '00223334v', pharmacy_name = 'ph_name3', name='dealer_member0', password='password0u', certificate_id='certId120u', contact_number='000022230'
-	WHERE nic='00223334v'; 
-	 
+	 -- First argument decide this is update or delete
+     call dealer_membersProcedure(0,'1111111', 'ph_name1', 'dealer_memberup', 'passnew', 'certId1223', 111122234);  
+     
+     
 	 -- delete profile
-	 DELETE FROM dealer_members WHERE nic = '00223334v';
+	 DELETE FROM dealer_members WHERE nic = '1111111';
  
  -- search medicine info based on medicine name
 SELECT medicine_name, description, mdf_date, exp_date, unit_price, stock_qty, available
