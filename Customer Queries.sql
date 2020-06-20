@@ -1,4 +1,4 @@
-USE medical_db1;
+USE medical_db0;
 -- Order medication from the desired pharmacy
 -- Since id is auto increment, it is not mentioned here 
 
@@ -55,8 +55,10 @@ SELECT delivery_status
 FROM deliveries
 WHERE orders_informationId = 2;
 
+
+-- NOTE: In order to run following 2 queries, store procedures must be created !!!
+
 -- CRUD customer
-use medical_db1;
     -- insert
 	call customerProcedure(0,'new_customer','newpass', '55', '653212349v',0886667542,'new_address');
     -- update

@@ -1,5 +1,7 @@
--- Customer Store Procedure
+USE medical_db0;
 
+-- Customer Store Procedure
+DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `customerProcedure`(
 IN _id int(11),
 in _name varchar(50),
@@ -28,11 +30,11 @@ BEGIN
             where id = _id;
 	end if;
     select _name as'name';
-END
-
+END//
+DELIMITER ;
 
 -- dealer_members Store Procedure
-
+DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `dealer_membersProcedure`(
 in _isinsert int(1),
 IN _nic int(5),
@@ -60,10 +62,10 @@ BEGIN
             where nic = _nic and pharmacy_name = _pharmacy_name;
 	end if;
     select _nic as'NIC', _name as 'name', _pharmacy_name as 'pharmacy', _contact_number as 'contact number', _certificate_id as 'certificate Id' ;
-END
-
+END//
+DELIMITER ;
 -- order_medicines Store Procedure
-
+DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `orderMedicines`(
   IN _customerId         int(5),
   IN _pharmacy_name      VARCHAR(20),
@@ -113,8 +115,8 @@ BEGIN
       END LOOP do_this;
 
     COMMIT;
-  END
-
+  END//
+DELIMITER ;
 
 
 

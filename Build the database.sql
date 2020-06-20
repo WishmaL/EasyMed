@@ -1,8 +1,8 @@
 
 -- 	THIS IS THE ONE, SHOULD USE TO CREATE THE TABLES AND INSERT DATA
 
-CREATE DATABASE medical_db1;
-USE medical_db1;
+CREATE DATABASE medical_db0;
+USE medical_db0;
 
 -- CREATE TABLE medicines(
 -- 	id INT(11) AUTO_INCREMENT,
@@ -111,23 +111,30 @@ CREATE TABLE order_medicines(
 
 
 ALTER TABLE deliveries
-ADD FOREIGN KEY (delivery_peopleId) REFERENCES delivery_people(id),
-ADD FOREIGN KEY(orders_informationId) REFERENCES orders_information(id);
+ADD FOREIGN KEY (delivery_peopleId) REFERENCES delivery_people(id)
+ON DELETE CASCADE,
+ADD FOREIGN KEY(orders_informationId) REFERENCES orders_information(id)
+ON DELETE CASCADE;
 
 
 ALTER TABLE orders_information
-ADD FOREIGN KEY (customerId) REFERENCES customers(id),
-ADD FOREIGN KEY (pharmacy_name) REFERENCES dealers(pharmacy_name);
+ADD FOREIGN KEY (customerId) REFERENCES customers(id)
+ON DELETE CASCADE,
+ADD FOREIGN KEY (pharmacy_name) REFERENCES dealers(pharmacy_name)
+ON DELETE CASCADE;
 
 ALTER TABLE order_medicines
-ADD FOREIGN KEY (orders_informationId) REFERENCES orders_information(id);
+ADD FOREIGN KEY (orders_informationId) REFERENCES orders_information(id)
+ON DELETE CASCADE;
 
 -- pharmacy_name VARCHAR(20)
 ALTER TABLE stocks
-ADD FOREIGN KEY (pharmacy_name) REFERENCES dealers(pharmacy_name);
+ADD FOREIGN KEY (pharmacy_name) REFERENCES dealers(pharmacy_name)
+ON DELETE CASCADE;
 
 ALTER TABLE dealer_members
-ADD FOREIGN KEY (pharmacy_name) REFERENCES dealers(pharmacy_name);
+ADD FOREIGN KEY (pharmacy_name) REFERENCES dealers(pharmacy_name)
+ON DELETE CASCADE;
 
 -- ALTER TABLE medicines
 -- ADD FOREIGN KEY (stockId) REFERENCES stocks(id);

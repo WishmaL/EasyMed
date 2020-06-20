@@ -1,4 +1,4 @@
-USE medical_db2;
+USE medical_db0;
 
 -- UPDATE THE DELIVERIES TABLE
 
@@ -47,18 +47,18 @@ GROUP BY oi.date;
 
 
 -- get the unit price
--- SELECT unit_price
--- FROM stocks 
--- WHERE dealerId = 1 and medicine_name in (
--- 	select medicine_name
---     from order_medicines
---     where orders_informationId = 2
--- );
+ SELECT unit_price
+ FROM stocks 
+ WHERE pharmacy_name = 'ph_name1' and medicine_name in (
+ 	select medicine_name
+    from order_medicines
+    where orders_informationId = 2
+ );
 
--- -- get the amount
--- select amount
--- from order_medicines
--- where orders_informationId = 2;
+ -- get the amount
+ select amount
+ from order_medicines
+ where orders_informationId = 2;
 
  
  

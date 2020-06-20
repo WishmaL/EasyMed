@@ -3,7 +3,7 @@
 -- INSERT ADDITIONAL DATA TO TABLES delivery_people, orders_information, order_medicines, deliveries
 
 
-USE medical_db1;
+USE medical_db0;
 
 INSERT INTO delivery_people(name, nic) 
 	VALUES ('user4', 'nic2124'),

@@ -1,4 +1,4 @@
-USE medical_db2;
+USE medical_db0;
 
 -- dealers allow to read the data only from 'deliveries' table
 -- following is useful for check the status of all deliveries  
